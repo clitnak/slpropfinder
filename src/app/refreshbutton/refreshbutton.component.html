@@ -1,0 +1,5 @@
+<button pButton type="button" [attr.icon]="isLoading ? 'fa-loading' : 'fa-refresh'"
+        iconPos="left" (click)="onclick()" [title]="message">
+  <ng-content></ng-content>
+</button>
+
