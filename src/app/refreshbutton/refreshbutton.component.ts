@@ -19,9 +19,8 @@ export class RefreshbuttonComponent implements OnInit {
   onclick() {
     this.isLoading=true;
     let setNotLoading = (value?) => {
-      this.message=value;
-      this.isLoading = false;
-    }
+      if(value) this.message=value;
+      this.isLoading = false; }
 
     this.service.refresh().subscribe(setNotLoading, setNotLoading, setNotLoading);
 

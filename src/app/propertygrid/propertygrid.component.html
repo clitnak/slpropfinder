@@ -1,3 +1,67 @@
-<p>
-  propertygrid works!
-</p>
+
+<p-dataTable #dt [value]="properties" exportFilename="properties"
+             sortField="auctionTime" sortOrder="1" reorderableColumns="true"
+             [rowStyleClass]="formatRow">
+  <p-column field="address" header="Address">
+    <ng-template let-property="rowData" pTemplate type="body">
+      <div pTooltip="{{property.verifiedAddress}}" >
+        <a href="{{property.zillowUrl}}">{{property.address}}</a>
+      </div>
+    </ng-template>
+  </p-column>
+  <p-column field="auctionTime" header="Auction" sortable="true">
+    <ng-template let-property="rowData" pTemplate type="body">
+        {{property.auctionTime+6*60*60*1000 | date: 'EEEE, d MMM h:mm a' : '-0600'}}
+    </ng-template>
+  </p-column>
+  <p-column field="startingBid" header="List Price"></p-column>
+  <p-column field="saleStatus" header="Status"></p-column>
+  <p-column field="trustee" header="Source"></p-column>
+  <p-column field="zillowLow" header="Market Low">
+    <ng-template let-property="rowData" pTemplate type="body">
+      <app-currencydisplay [currencyValue]="property.zillowLow"></app-currencydisplay>
+    </ng-template>
+  </p-column>
+  <p-column field="zillowHigh" header="Market High">
+    <ng-template let-property="rowData" pTemplate type="body">
+      <app-currencydisplay [currencyValue]="property.zillowHigh"></app-currencydisplay>
+    </ng-template>
+  </p-column>
+  <p-column field="calculatedRepairCosts" header="Estimated Repairs">
+    <ng-template let-property="rowData" pTemplate type="body">
+      <app-currencydisplay [currencyValue]="property.calculatedRepairCosts"></app-currencydisplay>
+    </ng-template>
+  </p-column>
+  <p-column field="onWebsite" header="" [filter]="true" >
+    <ng-template pTemplate="header" let-col>
+      <app-refreshbutton></app-refreshbutton>
+    </ng-template>
+    <ng-template pTemplate="filter" let-col>
+      <p-dropdown #websiteFilter [options]="websiteStatus" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" ></p-dropdown>
+    </ng-template>
+    <ng-template pTemplate="body" let-property="rowData">
+      <div [class]="property.onWebsite ? 'fa fa-check' : ''"></div>
+    </ng-template>
+  </p-column>
+</p-dataTable>
+<!--
+address;
+trustee;
+county;
+auctionTime;
+startingBid;
+saleStatus;
+onWebsite;
+verifiedAddress;
+googlePlaceId;
+zpid;
+zillowLow;
+zillowHigh;
+actualWorth;
+zillowSquareFeet;
+zillowLotSize;
+zillowBeds;
+zillowBaths;
+zillowUrl;
+condition;
+-->
