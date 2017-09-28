@@ -1,43 +1,86 @@
-import {AfterViewInit, Component, Injectable, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, Injectable, Input, OnInit, ViewChild} from '@angular/core';
 import {PropertyService} from '../property.service';
 import {Property} from "../domain/property";
 import {DataTable, Dropdown, SelectItem} from "primeng/primeng";
-
 @Component({
   selector: 'app-propertygrid',
   templateUrl: './propertygrid.component.html',
   styleUrls: ['./propertygrid.component.css']
 })
 @Injectable()
-export class PropertygridComponent implements OnInit, AfterViewInit {
+export class PropertygridComponent implements OnInit {
   @ViewChild('dt') dt: DataTable;
   @ViewChild('websiteFilter') websiteFilter: Dropdown;
   @Input() properties: Property[];
+
   websiteStatus: SelectItem[];
-  constructor(private propertyService: PropertyService) { }
+  math: any;
+  constructor(private propertyService: PropertyService) {
+    this.math = Math;
+  }
 
   ngOnInit() {
-    this.propertyService.retrieveProperties().then((properties) => {
-      this.properties = properties;
-    });
+    this.refresh();
     this.websiteStatus =[];
 
     this.websiteStatus.push({label:"All", value: null});
-    this.websiteStatus.push({label:"On Website", value: 'true'});
-    this.websiteStatus.push({label:"Off Website", value: 'false'});
+    this.websiteStatus.push({label:"Live", value: 'true'});
+    this.websiteStatus.push({label:"Dead", value: 'false'});
   }
 
-  ngAfterViewInit() {
-    //this.dt.filter(true, 'onWebsite', 'equals')
-    //if (this.dt.filteredValue) {
-    this.websiteFilter.selectItem(null, {label: "On Website", value: 'true'});
-    //}
+  refresh() {
+    this.propertyService.retrieveProperties().then((properties) => {
+      this.properties = properties
+      setTimeout(() => this.websiteFilter.selectItem({}, {label: "Live", value: 'true'}), 100);
+    });
   }
 
   formatRow(property: Property, index: number) : String {
+    let classes = [];
+
     let saleStatus = property.saleStatus ? property.saleStatus : "";
-    if (saleStatus.toLowerCase().indexOf("cancelled") >=0 )
-      return "cancelled";
+    if (saleStatus.toLowerCase().indexOf("cancelled") >= 0) {
+      classes.push("cancelled");
+    } else if (PropertygridComponent.propertyIsAGo(property)) {
+      classes.push("go");
+    } else if (PropertygridComponent.propertyIsANoGo(property)) {
+      classes.push("nogo");
+    } else if (PropertygridComponent.propertyIsLikelyAGo(property)) {
+      classes.push("maybe-go");
+    }
+    return classes.join(" ");
+
+  }
+  updateHomeWorth(event) {
+
+    alert("hi");
   }
 
+  filterByWebsite(event) {
+      this.dt.filter(event.value, 'onWebsite', 'equals')
+  }
+
+  private static propertyIsAGo(property: Property) : boolean {
+    if (property.startingBid == 0) return false;
+    let highestBid = Math.min(
+      property.calculatedMaximumLiquidOffer, //as much money as we have to make a fast purchase
+      property.calculatedMaximumFinancableOffer, //as much money as we can get at our selected risk level
+      property.calculatedMaximumWiseOffer //A wise offer, regardless of our financing
+    )
+    return (property.startingBid < highestBid);
+  }
+
+  private static propertyIsANoGo(property: Property) {
+    if (property.startingBid == 0) return false;
+    let highestBid = Math.min(
+      property.calculatedMaximumLiquidOffer, //as much money as we have to make a fast purchase
+      property.calculatedMaximumFinancableOffer, //as much money as we can get at our selected risk level
+      property.calculatedMaximumWiseOffer //A wise offer, regardless of our financing
+    )
+    return (property.startingBid > highestBid);
+  }
+
+  private static propertyIsLikelyAGo(property: Property) {
+    return (property.calculatedMaximumWiseOffer < property.calculatedMaximumLiquidOffer);
+  }
 }

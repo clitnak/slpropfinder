@@ -18,5 +18,13 @@ export interface Property {
   zillowBaths;
   zillowUrl;
   condition;
+  calculatedCashOnlyPossibility;
+  calculatedCommissions;
+  calculatedFinancingRisk;
+  calculatedInvestWorthiness;
+  calculatedMaximumFinancableOffer;
+  calculatedMaximumLiquidOffer;
+  calculatedMaximumProfit;
+  calculatedMaximumWiseOffer;
   calculatedRepairCosts;
 }

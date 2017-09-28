@@ -1,11 +1,26 @@
+.ui-widget {
+  font-size: 12px;
+}
 @import "~font-awesome/css/font-awesome.min.css";
 @import "~primeng/resources/primeng.css";
 @import "~primeng/resources/themes/voclain/theme.css";
 
 .cancelled {
   text-decoration: line-through;
-  color: gray;
+  color: lightgray;
+}
+.go {
+  background-color: limegreen;
+}
+.nogo {
+  background-color: pink;
+}
+.maybe-go {
+  background-color: lightgreen;
 }
 .ui-datatable table {
   table-layout: auto
 }
+
+
+

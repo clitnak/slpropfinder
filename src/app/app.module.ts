@@ -17,6 +17,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {TabViewModule} from 'primeng/primeng';
 import { PropertytabsComponent } from './propertytabs/propertytabs.component';
 import { CurrencydisplayComponent } from './currencydisplay/currencydisplay.component';
+import {InputTextModule} from 'primeng/primeng';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { CurrencydisplayComponent } from './currencydisplay/currencydisplay.comp
     TooltipModule,
     DropdownModule,
     BrowserAnimationsModule,
-    TabViewModule
+    TabViewModule,
+    InputTextModule
   ],
 
   providers: [RefreshService, PropertyService],
