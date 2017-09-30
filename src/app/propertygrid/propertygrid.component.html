@@ -1,9 +1,7 @@
 <p-dropdown #websiteFilter [options]="websiteStatus" (onChange)="filterByWebsite($event)"></p-dropdown>
-<!--<p-dropdown #websiteFilter [options]="websiteStatus" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" ></p-dropdown>-->
 <p-dataTable #dt [value]="properties" exportFilename="properties"
              sortField="auctionTime" sortOrder="1" reorderableColumns="true"
-             [rowStyleClass]="formatRow" [editable]="true"
-             (onEditComplete)="updateHomeWorth($event)">
+             [rowStyleClass]="formatRow" [editable]="true">
   <p-column field="startingBid" header="List Price">
     <ng-template let-property="rowData" pTemplate type="body">
       <app-currencydisplay [currencyValue]="property.startingBid"></app-currencydisplay>
