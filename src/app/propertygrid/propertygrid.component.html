@@ -11,10 +11,15 @@
   </p-column>
   <p-column field="calculatedMaximumWiseOffer" header="Our Top Offer">
     <ng-template let-property="rowData" pTemplate type="body">
-      <app-currencydisplay [currencyValue]="math.min(
+      <app-currencydisplay [currencyValue]="min(
       property.calculatedMaximumWiseOffer,
       property.calculatedMaximumLiquidOffer,
       property.calculatedMaximumFinancableOffer)"></app-currencydisplay>
+    </ng-template>
+  </p-column>
+  <p-column field="calculatedMaximumProfit" header="Profit">
+    <ng-template let-property="rowData" pTemplate type="body">
+      <app-currencydisplay [currencyValue]="property.calculatedMaximumProfit"></app-currencydisplay>
     </ng-template>
   </p-column>
   <p-column field="address" styleClass="address" header="Address">
@@ -26,7 +31,7 @@
   </p-column>
   <p-column field="auctionTime" header="Auction" sortable="true">
     <ng-template let-property="rowData" pTemplate type="body">
-        {{property.auctionTime+6*60*60*1000 | date: 'EEEE, d MMM h:mm a' : '-0600'}}
+        {{property.auctionTime | date: 'EEEE, d MMM h:mm a' : '-0600'}}
     </ng-template>
   </p-column>
   <p-column field="saleStatus" header="Status"></p-column>
@@ -35,6 +40,10 @@
     <ng-template let-property="rowData" pTemplate type="body">
       <app-currencydisplay [currencyValue]="property.actualWorth"></app-currencydisplay>
     </ng-template>
+
+    <ng-template pTemplate="editor" let-property="rowData">
+      <input type="text" pInputText [(ngModel)]="property.actualWorth" (blur)="updateHomeWorth($event, property)"  />
+    </ng-template>
   </p-column>
   <p-column header="Market Range">
     <ng-template let-property="rowData" pTemplate type="body">
@@ -42,9 +51,13 @@
       <app-currencydisplay [currencyValue]="property.zillowHigh"></app-currencydisplay>
     </ng-template>
   </p-column>
-  <p-column field="calculatedRepairCosts" header="Repairs">
+  <p-column field="calculatedRepairCosts" header="Repairs" [editable]="true" [style]="{'width':'75px'}">
     <ng-template let-property="rowData" pTemplate type="body">
       <app-currencydisplay [currencyValue]="property.calculatedRepairCosts"></app-currencydisplay>
+    </ng-template>
+    <ng-template pTemplate="editor" let-property="rowData" >
+      <p-dropdown [options]="conditions" [(ngModel)]="property.condition" (onChange)="updateHomeWorth($event, property)"
+                  [style]="{'width':'100%'}"></p-dropdown>
     </ng-template>
   </p-column>
   <p-column field="calculatedCommissions" header="Commissions">

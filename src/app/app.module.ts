@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
-
+import {FormsModule} from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { PropertygridComponent } from './propertygrid/propertygrid.component';
@@ -37,7 +37,8 @@ import {InputTextModule} from 'primeng/primeng';
     DropdownModule,
     BrowserAnimationsModule,
     TabViewModule,
-    InputTextModule
+    InputTextModule,
+    FormsModule
   ],
 
   providers: [RefreshService, PropertyService],

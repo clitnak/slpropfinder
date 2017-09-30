@@ -2,6 +2,7 @@ import {Component, Injectable, Input, OnInit, ViewChild} from '@angular/core';
 import {PropertyService} from '../property.service';
 import {Property} from "../domain/property";
 import {DataTable, Dropdown, SelectItem} from "primeng/primeng";
+
 @Component({
   selector: 'app-propertygrid',
   templateUrl: './propertygrid.component.html',
@@ -14,20 +15,30 @@ export class PropertygridComponent implements OnInit {
   @Input() properties: Property[];
 
   websiteStatus: SelectItem[];
-  math: any;
+  conditions: SelectItem[];
+
   constructor(private propertyService: PropertyService) {
-    this.math = Math;
   }
 
   ngOnInit() {
-    this.refresh();
     this.websiteStatus =[];
-
     this.websiteStatus.push({label:"All", value: null});
     this.websiteStatus.push({label:"Live", value: 'true'});
     this.websiteStatus.push({label:"Dead", value: 'false'});
+
+    this.conditions =[];
+    this.conditions.push({label:"(unknown)", value: null});
+    this.conditions.push({label:"Bad", value: 'Bad'});
+    this.conditions.push({label:"Fair", value: 'Fair'});
+    this.conditions.push({label:"Good", value: 'Good'});
+    this.conditions.push({label:"Great", value: 'Great'});
+    this.conditions.push({label:"Perfect", value: 'Perfect'});
+    this.refresh();
   }
 
+  min(val1: number, val2: number, val3: number) {
+    return Math.min(val1, val2, val3);
+  }
   refresh() {
     this.propertyService.retrieveProperties().then((properties) => {
       this.properties = properties
@@ -51,9 +62,10 @@ export class PropertygridComponent implements OnInit {
     return classes.join(" ");
 
   }
-  updateHomeWorth(event) {
-
-    alert("hi");
+  updateHomeWorth(event, property :Property) {
+    this.propertyService.save(property).then((p) => {
+      this.refresh();
+    });
   }
 
   filterByWebsite(event) {
