@@ -22,5 +22,10 @@
   table-layout: auto
 }
 
+th.editable {
+  background-color: lightblue;
+  color: darkslategray;
+  font-style: oblique;
+}
 
 

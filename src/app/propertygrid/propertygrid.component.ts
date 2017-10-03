@@ -12,7 +12,7 @@ import {DataTable, Dropdown, SelectItem} from "primeng/primeng";
 export class PropertygridComponent implements OnInit {
   @ViewChild('dt') dt: DataTable;
   @ViewChild('websiteFilter') websiteFilter: Dropdown;
-  @Input() properties: Property[];
+  @Input() properties: Property[] = [];
 
   websiteStatus: SelectItem[];
   conditions: SelectItem[];
