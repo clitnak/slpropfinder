@@ -1,9 +1,12 @@
-.ui-widget {
-  font-size: 12px;
-}
+
 @import "~font-awesome/css/font-awesome.min.css";
 @import "~primeng/resources/primeng.css";
 @import "~primeng/resources/themes/voclain/theme.css";
+
+.ui-widget {
+  font-size: 12px;
+}
+
 
 .cancelled {
   text-decoration: line-through;

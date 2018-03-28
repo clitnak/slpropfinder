@@ -7,9 +7,9 @@
       <app-currencydisplay [currencyValue]="property.startingBid"></app-currencydisplay>
     </ng-template>
   </p-column>
-  <p-column field="calculatedMaximumWiseOffer" header="Our Top Offer">
+  <!--<p-column field="calculatedMaximumWiseOffer" header="Our Top Offer">
     <ng-template let-property="rowData" pTemplate type="body">
-      <app-currencydisplay [currencyValue]="min(
+      <app-currencydisplay (onClick)="showFinancials(property)"[currencyValue]="min(
       property.calculatedMaximumWiseOffer,
       property.calculatedMaximumLiquidOffer,
       property.calculatedMaximumFinancableOffer)"></app-currencydisplay>
@@ -19,12 +19,25 @@
     <ng-template let-property="rowData" pTemplate type="body">
       <app-currencydisplay [currencyValue]="property.calculatedMaximumProfit"></app-currencydisplay>
     </ng-template>
-  </p-column>
+  </p-column>-->
   <p-column field="address" styleClass="address" header="Address">
     <ng-template let-property="rowData" pTemplate type="body">
       <div pTooltip="{{property.verifiedAddress}}" >
-        <a href="{{property.zillowUrl}}">{{property.address}}</a>
+        <a class="fa fa-google" href="https://www.google.com/maps/place/?q=place_id:{{property.googlePlaceId}}"></a>
+        <a href="{{property.zillowUrl}}">
+          <img src="https://cdn1.iconfinder.com/data/icons/black-white-social-media/32/zillow_social_media_logo-128.png" style="height:12px;width:12px;"/>
+        </a>
+        {{property.address}}
+
       </div>
+    </ng-template>
+  </p-column>
+  <p-column field="zillowBeds" header="Beds"></p-column>
+  <p-column field="zillowBaths" header="Baths"></p-column>
+  <p-column field="zillowSquareFeet" header="Sqft"></p-column>
+  <p-column field="zillowLotSize" header="Acres">
+    <ng-template let-property="rowData" pTemplate type="body">
+      {{(property.zillowLotSize/43560.0) | number:0}}
     </ng-template>
   </p-column>
   <p-column field="auctionTime" header="Auction" sortable="true">
@@ -57,11 +70,13 @@
                   [style]="{'width':'100%'}"></p-dropdown>
     </ng-template>
   </p-column>
+  <!--
   <p-column field="calculatedCommissions" header="Commissions">
     <ng-template let-property="rowData" pTemplate type="body">
       <app-currencydisplay [currencyValue]="property.calculatedCommissions"></app-currencydisplay>
     </ng-template>
   </p-column>
+  -->
 
   <p-column field="onWebsite" header="">
     <ng-template pTemplate="header" let-col>

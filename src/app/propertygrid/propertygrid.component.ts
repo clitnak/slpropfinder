@@ -1,4 +1,4 @@
-import {Component, Injectable, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Injectable, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {PropertyService} from '../property.service';
 import {Property} from "../domain/property";
 import {DataTable, Dropdown, SelectItem} from "primeng/primeng";
@@ -13,6 +13,7 @@ export class PropertygridComponent implements OnInit {
   @ViewChild('dt') dt: DataTable;
   @ViewChild('websiteFilter') websiteFilter: Dropdown;
   @Input() properties: Property[] = [];
+  @Output() viewFinancials = new EventEmitter();
 
   websiteStatus: SelectItem[];
   conditions: SelectItem[];
@@ -73,26 +74,32 @@ export class PropertygridComponent implements OnInit {
   }
 
   private static propertyIsAGo(property: Property) : boolean {
-    if (property.startingBid == 0) return false;
-    let highestBid = Math.min(
+    return property.zillowBeds >= 5 && property.zillowSquareFeet >= 3000
+    /*let highestBid = Math.min(
       property.calculatedMaximumLiquidOffer, //as much money as we have to make a fast purchase
       property.calculatedMaximumFinancableOffer, //as much money as we can get at our selected risk level
       property.calculatedMaximumWiseOffer //A wise offer, regardless of our financing
     )
-    return (property.startingBid < highestBid);
+    return (property.startingBid < highestBid);*/
   }
 
   private static propertyIsANoGo(property: Property) {
-    if (property.startingBid == 0) return false;
-    let highestBid = Math.min(
+    return property.zillowBeds < 5 || property.zillowSquareFeet < 3000
+    /*let highestBid = Math.min(
       property.calculatedMaximumLiquidOffer, //as much money as we have to make a fast purchase
       property.calculatedMaximumFinancableOffer, //as much money as we can get at our selected risk level
       property.calculatedMaximumWiseOffer //A wise offer, regardless of our financing
     )
-    return (property.startingBid > highestBid);
+    return (property.startingBid > highestBid);*/
   }
 
   private static propertyIsLikelyAGo(property: Property) {
-    return (property.calculatedMaximumWiseOffer < property.calculatedMaximumLiquidOffer);
+    return property.zillowBeds >= 5 && property.zillowBaths >= 3 && property.zillowSquareFeet >= 3000
+    //return (property.calculatedMaximumWiseOffer < property.calculatedMaximumLiquidOffer);
+  }
+
+  showFinancials(property: Property) {
+
+
   }
 }

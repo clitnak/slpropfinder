@@ -1,7 +1,7 @@
 
 <p-tabView>
   <p-tabPanel header="List" leftIcon="fa-list">
-    <app-propertygrid></app-propertygrid>
+    <app-propertygrid (viewFinancials)="viewPropertyFinancials()"></app-propertygrid>
   </p-tabPanel>
   <p-tabPanel header="Map" leftIcon="fa-map">
     Coming Soon
@@ -10,3 +10,5 @@
     Coming Soon
   </p-tabPanel>
 </p-tabView>
+
+<p-sidebar header="Financials" [(visible)]="showFinancials"></p-sidebar>

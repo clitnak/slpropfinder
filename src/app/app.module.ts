@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { PropertygridComponent } from './propertygrid/propertygrid.component';
 import { RefreshbuttonComponent } from './refreshbutton/refreshbutton.component';
 import {ButtonModule} from "primeng/primeng";
+import {SidebarModule} from "primeng/primeng";
 import {DataTableModule,SharedModule} from 'primeng/primeng';
 
 import {RefreshService} from "./refresh.service";
@@ -38,7 +39,8 @@ import {InputTextModule} from 'primeng/primeng';
     BrowserAnimationsModule,
     TabViewModule,
     InputTextModule,
-    FormsModule
+    FormsModule,
+    SidebarModule
   ],
 
   providers: [RefreshService, PropertyService],
