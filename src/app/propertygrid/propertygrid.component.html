@@ -24,11 +24,10 @@
     <ng-template let-property="rowData" pTemplate type="body">
       <div pTooltip="{{property.verifiedAddress}}" >
         <a class="fa fa-google" href="https://www.google.com/maps/place/?q=place_id:{{property.googlePlaceId}}"></a>
-        <a href="{{property.zillowUrl}}">
+        <a ng-if="property.zillowUrl" href="{{property.zillowUrl}}">
           <img src="https://cdn1.iconfinder.com/data/icons/black-white-social-media/32/zillow_social_media_logo-128.png" style="height:12px;width:12px;"/>
         </a>
         {{property.address}}
-
       </div>
     </ng-template>
   </p-column>
