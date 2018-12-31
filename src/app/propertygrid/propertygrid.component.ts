@@ -74,7 +74,7 @@ export class PropertygridComponent implements OnInit {
   }
 
   private static propertyIsAGo(property: Property) : boolean {
-    return property.zillowBeds >= 5 && property.zillowSquareFeet >= 3000
+    return false; //property.zillowBeds >= 5 && property.zillowSquareFeet >= 3000
     /*let highestBid = Math.min(
       property.calculatedMaximumLiquidOffer, //as much money as we have to make a fast purchase
       property.calculatedMaximumFinancableOffer, //as much money as we can get at our selected risk level
@@ -84,7 +84,7 @@ export class PropertygridComponent implements OnInit {
   }
 
   private static propertyIsANoGo(property: Property) {
-    return property.zillowBeds < 5 || property.zillowSquareFeet < 3000
+    return false; //property.zillowBeds < 5 || property.zillowSquareFeet < 3000
     /*let highestBid = Math.min(
       property.calculatedMaximumLiquidOffer, //as much money as we have to make a fast purchase
       property.calculatedMaximumFinancableOffer, //as much money as we can get at our selected risk level
@@ -94,7 +94,7 @@ export class PropertygridComponent implements OnInit {
   }
 
   private static propertyIsLikelyAGo(property: Property) {
-    return property.zillowBeds >= 5 && property.zillowBaths >= 3 && property.zillowSquareFeet >= 3000
+    return false;//property.zillowBeds >= 5 && property.zillowBaths >= 3 && property.zillowSquareFeet >= 3000
     //return (property.calculatedMaximumWiseOffer < property.calculatedMaximumLiquidOffer);
   }
 
