@@ -41,7 +41,7 @@
   </p-column>
   <p-column field="auctionTime" header="Auction" sortable="true">
     <ng-template let-property="rowData" pTemplate type="body">
-        {{(property.auctionTime + 6*60*60*1000)| date: 'EEEE, d MMM h:mm a' : '-0600'}}
+        {{(property.auctionTime)| date: 'EEEE, d MMM h:mm a' : '-0700'}}
     </ng-template>
   </p-column>
   <p-column field="saleStatus" header="Status"></p-column>
